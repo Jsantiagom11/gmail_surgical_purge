@@ -38,7 +38,7 @@ dev = [
   "pytest-cov>=6,<8",
   "pytest-socket>=0.7,<1",
   "ruff>=0.12,<1",
-  "twine>=6,<7",
+  "twine>=6,<8",
   "types-requests>=2.32,<3",
 ]
 
