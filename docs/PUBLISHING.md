@@ -1,59 +1,50 @@
-# Publishing checklist
+# Publication and maintenance
 
-The repository is prepared locally. A GitHub repository and successful remote CI
-must be verified separately; this document is not proof of publication.
+The project is published at
+[Jsantiagom11/gmail_surgical_purge](https://github.com/Jsantiagom11/gmail_surgical_purge).
+Do not create a second repository to continue this project.
 
-## Owner decisions
-
-- Choose repository visibility deliberately. Private is the safer staging option.
-- Choose a license if you intend to grant reuse rights; none is granted by this template.
-- Do not add Gmail OAuth secrets to GitHub Actions. CI is entirely offline with synthetic mail.
-
-## Verify the exact source before pushing
+## Work from the current source
 
 ```bash
-git status --short
-git diff --check
+git clone https://github.com/Jsantiagom11/gmail_surgical_purge.git
+cd gmail_surgical_purge
+uv sync --locked --dev
+git switch -c feat/describe-your-change
+```
+
+If already cloned, inspect `git status` before updating. Preserve existing changes
+and unrelated history. Never force-push or overwrite a conflicting remote.
+
+## Verify a change before pushing
+
+Stage only the files you intend to publish, then run:
+
+```bash
+git diff --cached --check
 uv run --frozen python scripts/check_publication.py
 bash scripts/check.sh
+git diff --cached
 ```
 
-The privacy check reads the Git index, including staged content. Review `git diff
---cached` as well. No regular-expression scan can guarantee the absence of personal data.
+The privacy guard checks the exact Git index, not untracked working files. Its
+patterns are heuristic; manual review remains necessary. Never stage mailbox
+exports, personalized rules, credentials, tokens, plans, samples, or logs.
 
-## Publish from an authenticated Linux/WSL2 environment
+After reviewing the source, commit the intended change and push its feature branch.
+Open a pull request and verify all three Quality jobs before merging. CI requires
+no Gmail OAuth secrets; do not add them to GitHub Actions.
 
-If you received a Git bundle, clone it first:
+## Release decisions
 
-```bash
-git clone gmail-surgical-purge.bundle gmail-surgical-purge
-cd gmail-surgical-purge
-```
+- Repository visibility was selected by the owner; do not change it automatically.
+- No open-source reuse license has been selected. See [LICENSE_NOTICE.md](../LICENSE_NOTICE.md).
+- Consider branch protection and private vulnerability reporting before accepting external contributions.
+- Create release tags only after the desired checks pass for the exact commit.
+- GitHub publication does not authorize a live Gmail purge or establish OAuth app verification.
 
-The following command creates a **private** repository in the account currently
-authenticated by GitHub CLI. Inspect `gh api user --jq .login` before running it.
+## Recovery provenance
 
-```bash
-gh auth status
-gh api user --jq .login
-gh repo create gmail-surgical-purge --private --source=. --remote=origin --push
-```
-
-If an empty repository already exists, use its verified URL instead:
-
-```bash
-git remote add origin https://github.com/YOUR_ACCOUNT/gmail-surgical-purge.git
-git push -u origin main
-```
-
-Do not overwrite an existing `origin`, force-push, or replace another repository's
-history. Inspect a conflicting remote or non-empty destination first.
-
-## After push
-
-1. Confirm GitHub shows the same commit as `git rev-parse HEAD`.
-2. Verify the Python 3.11, 3.12, and 3.13 CI jobs; do not infer success from local tests.
-3. Configure branch protection and private vulnerability reporting if available.
-4. Set topics such as `python`, `gmail-api`, `cli`, `automation`, `email`, `productivity`.
-5. Review all source/history and the license decision before changing visibility to public.
-6. Create a release tag only after the desired gates are green.
+The original local bundle contains commit `b46088e`. The public import is commit
+`756399b`; its tracked tree was verified to match that recovered snapshot.
+See [EVIDENCE.md](EVIDENCE.md) for the source-tree identifier and CI evidence.

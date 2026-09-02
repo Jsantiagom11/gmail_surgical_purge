@@ -13,6 +13,8 @@ Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then run 
 the repository root:
 
 ```bash
+git clone https://github.com/Jsantiagom11/gmail_surgical_purge.git
+cd gmail_surgical_purge
 uv sync --locked --dev
 uv run --frozen gmail-purge demo --messages 12000
 ```
@@ -170,8 +172,9 @@ stale IDs, protected mail, OAuth boundaries, and batches above 10,000 synthetic
 messages. There is no live-mailbox integration test or claim of production certification.
 
 GitHub Actions is configured for Python 3.11, 3.12, and 3.13 with read-only repository
-permissions, pinned action commits, and no Gmail secrets. Remote CI results must be
-checked after the repository is actually pushed.
+permissions, pinned action commits, and no Gmail secrets. Check the current
+[Quality workflow results](https://github.com/Jsantiagom11/gmail_surgical_purge/actions/workflows/ci.yml)
+for the commit you intend to use; local results do not substitute for remote CI.
 
 ## Documentation
 

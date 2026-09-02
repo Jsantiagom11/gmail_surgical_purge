@@ -2,8 +2,9 @@
 
 Verification date: **2026-09-02 (UTC)**. Version: **0.1.0 alpha**.
 
-This is a local verification record, not a security certification, live-mailbox
-benchmark, GitHub Actions result, or proof of publication.
+This record separates local offline checks from verified GitHub CI results.
+Neither is a security certification, a live-mailbox benchmark, or proof of
+production readiness.
 
 ## Measured local checks
 
@@ -27,6 +28,26 @@ generated 2.5 metadata; the validation gate was not disabled.
 
 The publication scanner rejects oversized input before pattern matching and
 bounds its email pattern. Its oversized-input regression case is part of the suite.
+
+## Verified GitHub publication and CI
+
+The initial publication used the GitHub integration. Commit identities differ,
+but the complete tracked source tree was verified to be identical:
+
+| Reference | Verified value |
+|---|---|
+| Recovered local commit | `b46088ef017e8b4e5119f4e5c5c42178ca182034` |
+| GitHub import commit | `756399b7004c3a631f57e96e575a3fbb5d6e5857` |
+| Matching source tree | `9dec061d3023cff47fd9e04aa4398775ea45c29b` |
+| Tracked files | 47 |
+
+[Quality run 33643832025](https://github.com/Jsantiagom11/gmail_surgical_purge/actions/runs/33643832025)
+completed successfully for **Python 3.11, 3.12, and 3.13**. All three jobs passed
+formatting, lint, strict types, offline tests/coverage, the publication guard,
+distribution build/validation, and the isolated wheel smoke test.
+
+This evidence is tied to that import commit. Later documentation updates do not
+change what was measured; consult the workflow for results on subsequent commits.
 
 ## Synthetic 12,000-message scenario
 
@@ -66,8 +87,6 @@ for a subsequent run. Raw demo plans/checkpoints are intentionally not versioned
 ## Not verified here
 
 - Live Gmail OAuth, reads, writes, latency, or behavior on any real mailbox.
-- Python 3.11 and 3.13 execution; they are configured in remote CI but not run locally.
-- A successful remote GitHub Actions run or public/private repository creation.
 - Absence of every possible secret or personal datum; the scanner is heuristic.
 - Legal retention requirements, OAuth app verification, or production readiness.
 - Byte-identical builds across operating systems or future build-backend releases.

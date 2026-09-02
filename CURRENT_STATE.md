@@ -1,44 +1,41 @@
-# Estado recuperable del proyecto
+# Estado del proyecto
 
-Fecha: **2026-09-02**. Versión: **0.1.0 alpha**.
+Fecha de publicación: **2026-09-02**. Versión: **0.1.0 alpha**.
 
-## Terminado
+Repositorio: [Jsantiagom11/gmail_surgical_purge](https://github.com/Jsantiagom11/gmail_surgical_purge), rama `main`.
 
-- CLI Python modular: configurar, autorizar, auditar, planificar, revisar, aplicar,
-  consultar estado y ejecutar una demo sin Gmail.
-- Protección por mensaje, aprobación explícita, cuentas separadas de demo/producción,
-  lotes acotados y checkpoints para reanudación.
+## Terminado y verificado
+
+- Publicados los 47 archivos revisados, sin credenciales ni datos de un buzón real.
+- Importación inicial: `756399b7004c3a631f57e96e575a3fbb5d6e5857`.
+- El árbol publicado coincide con el snapshot local recuperado `b46088e`.
+- CLI modular, aprobación explícita, protecciones por mensaje, lotes y reanudación.
 - Guía en las dos fases solicitadas: [RUNBOOK_ES.md](docs/RUNBOOK_ES.md).
-- Pruebas sin red, tipado estricto, controles de publicación y CI configurada.
-- Código público de ejemplo separado de cualquier material personalizado del buzón.
+- 116 pruebas locales sin red; cobertura de 99,42 %, lint, tipado estricto y paquete instalable.
+- GitHub Actions pasó en Python 3.11, 3.12 y 3.13 para la importación inicial.
+  [Ejecución verificada](https://github.com/Jsantiagom11/gmail_surgical_purge/actions/runs/33643832025).
 
-## Pendiente y fuera de las afirmaciones de esta versión
+## Pendiente
 
-1. Crear o seleccionar un repositorio GitHub vacío y verificar su URL.
-2. Publicar el commit local sin sobrescribir historial ajeno.
-3. Comprobar los tres trabajos de GitHub Actions tras el push.
-4. Decidir licencia antes de promoverlo como software de código abierto.
-5. Hacer un piloto de archivado real, pequeño y revisado, solo con autorización.
+1. Decidir licencia antes de promoverlo como software de código abierto.
+2. Ejecutar un piloto real de archivado, pequeño y revisado, solo con autorización.
+3. Revisar políticas de conservación y copias de seguridad antes de usar Papelera.
 
-No se han ejecutado operaciones sobre Gmail durante la preparación de este
-repositorio. No se afirma que esté publicado, certificado o probado en producción.
+La publicación y las pruebas no certifican uso en producción. No se ejecutaron
+operaciones sobre Gmail al preparar o publicar este repositorio.
 
-## Recuperar el código y el historial
-
-Con el archivo `gmail-surgical-purge.bundle` en el directorio actual:
+## Continuar desde GitHub
 
 ```bash
-git clone gmail-surgical-purge.bundle gmail-surgical-purge
-cd gmail-surgical-purge
-git log -1 --oneline
+git clone https://github.com/Jsantiagom11/gmail_surgical_purge.git
+cd gmail_surgical_purge
 uv sync --locked --dev
 bash scripts/check.sh
 ```
 
-El ZIP de código sirve para inspeccionar o descargar los archivos; el bundle
-conserva también la rama y el historial Git. No contiene credenciales ni datos de
-un buzón real.
+El bundle `gmail-surgical-purge.bundle` conserva el snapshot local previo a la
+publicación. Es una copia de recuperación, no sustituye a la versión actual de
+`main`; la importación de GitHub tiene otro commit, con el mismo árbol de archivos.
 
-Consulta [evidencia de verificación](docs/EVIDENCE.md) y
-[pasos de publicación](docs/PUBLISHING.md). Para retomar, parte de esta versión;
-no copies material personalizado a este repositorio.
+Consulta [evidencia](docs/EVIDENCE.md), [mantenimiento](docs/PUBLISHING.md) y los
+[resultados actuales de CI](https://github.com/Jsantiagom11/gmail_surgical_purge/actions/workflows/ci.yml).
