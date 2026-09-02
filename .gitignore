@@ -1,0 +1,36 @@
+# Private runtime material: never commit or upload.
+.gmail-purge/
+credentials/
+credentials*.json
+client_secret*.json
+token*.json
+*plan*.json
+*state*.json
+config.local.toml
+*.local.toml
+.env
+.env.*
+!.env.example
+*.log
+*.out
+*.lock.tmp
+*.mbox
+*.eml
+*.pem
+*.key
+# Tool/build output.
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+dist/
+build/
+*.egg-info/
+.DS_Store
+.idea/
+.vscode/

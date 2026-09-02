@@ -1,0 +1,30 @@
+# Copy to config.local.toml; keep real senders and labels out of version control.
+schema_version = 1
+
+[settings]
+protected_labels = ["01_ACTION", "02_WAITING", "03_RECORDS", "04_KNOWLEDGE"]
+excluded_senders = []
+max_plan_age_hours = 24
+batch_size = 250
+workers = 4
+requests_per_second = 20.0
+
+[[rules]]
+name = "promotions_archive"
+query = "in:inbox category:promotions older_than:180d"
+action = "archive"
+label = "99_ARCHIVE"
+
+[[rules]]
+name = "social_archive"
+query = "in:inbox category:social older_than:180d"
+action = "archive"
+label = "99_ARCHIVE"
+
+# Trash is intentionally disabled. Replace the reserved example sender,
+# review the resulting plan, and explicitly pass --allow-trash at apply time.
+[[rules]]
+name = "known_newsletter_trash"
+query = "category:promotions older_than:2y from:newsletter@example.com"
+action = "trash"
+enabled = false

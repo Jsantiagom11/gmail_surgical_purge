@@ -1,0 +1,83 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gmail-surgical-purge"
+version = "0.1.0"
+description = "Plan-first Gmail cleanup with immutable manifests and resumable, guarded execution"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "Jsantiagom11"}]
+keywords = ["gmail", "automation", "cli", "email", "productivity"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Communications :: Email",
+]
+dependencies = [
+  "google-auth>=2.40,<3",
+  "google-auth-oauthlib>=1.2,<2",
+  "pydantic>=2.10,<3",
+  "requests>=2.32,<3",
+]
+
+[project.scripts]
+gmail-purge = "gmail_surgical_purge.cli:main"
+
+[dependency-groups]
+dev = [
+  "build>=1.2,<2",
+  "mypy>=1.16,<2",
+  "pytest>=8.3,<10",
+  "pytest-cov>=6,<8",
+  "pytest-socket>=0.7,<1",
+  "ruff>=0.12,<1",
+  "twine>=6,<7",
+  "types-requests>=2.32,<3",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gmail_surgical_purge"]
+core-metadata-version = "2.4"
+
+[tool.hatch.build.targets.sdist]
+core-metadata-version = "2.4"
+include = [
+  "/src", "/tests", "/config", "/docs", "/scripts",
+  "/README.md", "/CURRENT_STATE.md", "/SECURITY.md", "/CONTRIBUTING.md",
+  "/CHANGELOG.md", "/LICENSE_NOTICE.md", "/pyproject.toml", "/uv.lock",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["src", "tests", "scripts"]
+plugins = ["pydantic.mypy"]
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = ["google.*", "google_auth_oauthlib.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = "--strict-config --strict-markers --disable-socket --cov=gmail_surgical_purge --cov-report=term-missing --cov-fail-under=85"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+exclude_also = ["if TYPE_CHECKING:", "if __name__ == .__main__.:"]
