@@ -33,7 +33,7 @@ gmail-purge = "gmail_surgical_purge.cli:main"
 [dependency-groups]
 dev = [
   "build>=1.2,<2",
-  "mypy>=1.16,<2",
+  "mypy>=1.16,<3",
   "pytest>=8.3,<10",
   "pytest-cov>=6,<8",
   "pytest-socket>=0.7,<1",
